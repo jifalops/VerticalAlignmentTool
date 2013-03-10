@@ -17,25 +17,8 @@ import javax.swing.text.TabStop;
  * {@link http://nickgravgaard.com/elastictabstops/}
  * and heavily modified.
  */
-public class DocFilter extends DocumentFilter
-{
-	FontMetrics m_fm;
-
-	/*
-	// tabstops are multiples of 32 pixels plus 8 pixels of padding
-	int m_tabMultiples = 32; // must be greater than 0
-	int m_tabMinimum = 0;
-	int m_tabPadding = 8;
-	*/
-
-	// tabstops are at least 32 pixels plus 8 pixels of padding
-	int m_tabMultiples = 1; // must be greater than 0
-	int m_tabMinimum = 32;
-	int m_tabPadding = 8;
-
-	public DocFilter()
-	{
-	}
+public class DocFilter extends DocumentFilter {
+	private FontMetrics mFontMetrics;
 
 	public DocFilter(FontMetrics fm)
 	{

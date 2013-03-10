@@ -9,7 +9,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.Window;
 
-// TODO make things dependent on the display configuration (count, resolution)
+// TODO make things that are dependent on the display configuration (count, resolution)
 // static (or in another class) and figure out how to update them when necessary
 
 // Some metrics ideas were taken from

@@ -68,7 +68,7 @@ public class VerticalAlignmentTool extends JApplet {
 		mContainer.setContentPane(panel);
 		this.setSize(appWidth, appHeight);
 
-		mTextPane.setFont(new Font("Verdana", java.awt.Font.PLAIN, 11));
+		mTextPane.setFont(new Font("Verdana", java.awt.Font.PLAIN, 12));
 		StyledDocument styledDoc = mTextPane.getStyledDocument();
 		AbstractDocument doc = (AbstractDocument)styledDoc;
 		FontMetrics fm = mTextPane.getFontMetrics(mTextPane.getFont());
