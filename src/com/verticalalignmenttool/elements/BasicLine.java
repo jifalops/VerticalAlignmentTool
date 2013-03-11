@@ -1,14 +1,14 @@
 package com.verticalalignmenttool.elements;
 
 
-public class TextLine extends Line {
+public class BasicLine extends Line {
 	private String mText;
 
-	public TextLine() {
+	public BasicLine() {
 
 	}
 
-	public TextLine(String text) {
+	public BasicLine(String text) {
 		mText = text;
 	}
 
