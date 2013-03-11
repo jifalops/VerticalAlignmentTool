@@ -14,6 +14,9 @@ import javax.swing.UIManager;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.StyledDocument;
 
+import com.verticalalignmenttool.util.DisplayMetrics;
+
+
 /**
  * Code for this class (not the entire app) was taken from
  * {@link http://nickgravgaard.com/elastictabstops/}
@@ -24,8 +27,11 @@ public class VerticalAlignmentTool extends JApplet {
 	private static final int appWidth = 640;
 	private static final int appHeight = 480;
 
-	private JTextPane mTextPane = new JTextPane();
+	private JTextPane mTextPane;
 	private RootPaneContainer mContainer;
+
+	private DisplayMetrics mDisplayMetrics;
+
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -42,23 +48,22 @@ public class VerticalAlignmentTool extends JApplet {
 	}
 
     // Constructor used when run as an applet
-    public VerticalAlignmentTool()
-    {
+    public VerticalAlignmentTool() {
         mContainer = this;
     }
 
     // Constructor used when run as an application
-    public VerticalAlignmentTool(JFrame frame)
-    {
+    public VerticalAlignmentTool(JFrame frame) {
     	mContainer = frame;
     }
 
 	public void initialize() {
-		try
-		{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch (Exception e) {}
+		mTextPane = new JTextPane();
+
+
+
+		try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
+		catch (Exception ignored) {}
 
 		// layout main content panel
 		JPanel panel = new JPanel();
@@ -68,9 +73,14 @@ public class VerticalAlignmentTool extends JApplet {
 		mContainer.setContentPane(panel);
 		this.setSize(appWidth, appHeight);
 
+		mDisplayMetrics = new DisplayMetrics(panel);
+
+
+
+
 		mTextPane.setFont(new Font("Verdana", java.awt.Font.PLAIN, 12));
 		StyledDocument styledDoc = mTextPane.getStyledDocument();
-		AbstractDocument doc = (AbstractDocument)styledDoc;
+		AbstractDocument doc = (AbstractDocument) styledDoc;
 		FontMetrics fm = mTextPane.getFontMetrics(mTextPane.getFont());
 		doc.setDocumentFilter(new DocFilter(fm));
 		String initialText = ""

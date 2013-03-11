@@ -20,35 +20,33 @@ import javax.swing.text.TabStop;
 public class DocFilter extends DocumentFilter {
 	private FontMetrics mFontMetrics;
 
-	public DocFilter(FontMetrics fm)
-	{
-		m_fm = fm;
+	public DocFilter(FontMetrics fm) {
+		mFontMetrics = fm;
 	}
 
-	public void insertString(FilterBypass fb, int offs, String str, AttributeSet a) throws BadLocationException
-	{
+	@Override
+	public void insertString(FilterBypass fb, int offs, String str,
+			AttributeSet a) throws BadLocationException {
 		super.insertString(fb, offs, str, a);
-		StyledDocument doc = (StyledDocument)fb.getDocument();
-		stretchTabstops(doc);
+		stretchTabstops((StyledDocument) fb.getDocument());
 	}
 
-	public void remove(FilterBypass fb, int offs, int length) throws BadLocationException
-	{
+	@Override
+	public void remove(FilterBypass fb, int offs, int length)
+			throws BadLocationException {
 		super.remove(fb, offs, length);
-		StyledDocument doc = (StyledDocument)fb.getDocument();
-		stretchTabstops(doc);
+		stretchTabstops((StyledDocument) fb.getDocument());
 	}
 
-	public void replace(FilterBypass fb, int offs, int length, String str, AttributeSet a) throws BadLocationException
-	{
+	@Override
+	public void replace(FilterBypass fb, int offs, int length, String str,
+			AttributeSet a) throws BadLocationException {
 		super.replace(fb, offs, length, str, a);
-		StyledDocument doc = (StyledDocument)fb.getDocument();
-		stretchTabstops(doc);
+		stretchTabstops((StyledDocument) fb.getDocument());
 	}
 
 	// todo: needs optimising - a lot of this should be cached if possible
-	void stretchTabstops(StyledDocument doc)
-	{
+	void stretchTabstops(StyledDocument doc) {
 		Element section = doc.getDefaultRootElement();
 
 		int maxTabstops = 32; // todo: magic number hardcoded
@@ -74,23 +72,20 @@ public class DocFilter extends DocumentFilter {
 			int lineEnd = line.getEndOffset();
 			lines[l].startPos = lineStart;
 			lines[l].endPos = lineEnd;
-			try
-			{
+			try {
 				String lineText = doc.getText(lineStart, lineEnd - lineStart);
 				int textWidthInTab = 0;
 				int currentTabNum = 0;
 				int lineLength = lineText.length();
-				for (int c = 0; c < lineLength; c++) // for each char in current line
+				for (int c = 0; c < lineLength; c++) // for each char in current
+														// line
 				{
 					char currentChar = lineText.charAt(c);
-					if (currentChar == '\n')
-					{
+					if (currentChar == '\n') {
 						grid[l][currentTabNum].endsInTab = false;
 						grid[l][currentTabNum].endPos = lineStart + c;
 						textWidthInTab = 0;
-					}
-					else if (currentChar == '\t')
-					{
+					} else if (currentChar == '\t') {
 						grid[l][currentTabNum].endsInTab = true;
 						grid[l][currentTabNum].endPos = lineStart + c;
 						grid[l][currentTabNum].textWidthPix = calcTabWidth(textWidthInTab);
@@ -98,15 +93,11 @@ public class DocFilter extends DocumentFilter {
 						grid[l][currentTabNum].startPos = lineStart + c + 1;
 						lines[l].numTabs++;
 						textWidthInTab = 0;
-					}
-					else
-					{
-						textWidthInTab += m_fm.charWidth(currentChar);
+					} else {
+						textWidthInTab += mFontMetrics.charWidth(currentChar);
 					}
 				}
-			}
-			catch (BadLocationException ex)
-			{
+			} catch (BadLocationException ex) {
 			}
 		}
 
@@ -118,20 +109,15 @@ public class DocFilter extends DocumentFilter {
 			int maxWidth = 0;
 			for (int l = 0; l < lineCount; l++) // for each line
 			{
-				if (grid[l][t].endsInTab)
-				{
+				if (grid[l][t].endsInTab) {
 					grid[l][t].widestWidthPix = theWidestWidthPix; // copy ref
-					if (grid[l][t].textWidthPix < maxWidth)
-					{
+					if (grid[l][t].textWidthPix < maxWidth) {
 						grid[l][t].textWidthPix = maxWidth;
-					}
-					else
-					{
+					} else {
 						maxWidth = grid[l][t].textWidthPix;
 						theWidestWidthPix.val = maxWidth;
 					}
-				}
-				else // end column block
+				} else // end column block
 				{
 					theWidestWidthPix = new MutableInteger(0); // reference
 					maxWidth = 0;
@@ -144,8 +130,7 @@ public class DocFilter extends DocumentFilter {
 		{
 			// accumulate tabstop widths
 			int accTabstop = 0;
-			for (int t = 0; t < lines[l].numTabs; t++)
-			{
+			for (int t = 0; t < lines[l].numTabs; t++) {
 				accTabstop += grid[l][t].widestWidthPix.val;
 				grid[l][t].textWidthPix = accTabstop;
 			}
@@ -153,27 +138,26 @@ public class DocFilter extends DocumentFilter {
 			Element line = section.getElement(l);
 			int lineStart = line.getStartOffset();
 			int lineEnd = line.getEndOffset();
-			setBlocksTabstops(doc, lineStart, lineEnd, grid[l], lines[l].numTabs);
+			setBlocksTabstops(doc, lineStart, lineEnd, grid[l],
+					lines[l].numTabs);
 		}
 	}
 
-	int calcTabWidth(int textWidthInTab)
-	{
-		textWidthInTab = (((int)(textWidthInTab / m_tabMultiples)) + 1) * m_tabMultiples;
-		if (textWidthInTab < m_tabMinimum)
-		{
+	int calcTabWidth(int textWidthInTab) {
+		textWidthInTab = (((int) (textWidthInTab / m_tabMultiples)) + 1)
+				* m_tabMultiples;
+		if (textWidthInTab < m_tabMinimum) {
 			textWidthInTab = m_tabMinimum;
 		}
 		textWidthInTab += m_tabPadding;
 		return textWidthInTab;
 	}
 
-	void setBlocksTabstops(StyledDocument doc, int start, int length, ETTabstop[] tabstopPositions, int tabstopCount)
-	{
+	void setBlocksTabstops(StyledDocument doc, int start, int length,
+			ETTabstop[] tabstopPositions, int tabstopCount) {
 		TabStop[] tabs = new TabStop[tabstopCount];
 
-		for (int j = 0; j < tabstopCount; j++)
-		{
+		for (int j = 0; j < tabstopCount; j++) {
 			tabs[j] = new TabStop(tabstopPositions[j].textWidthPix);
 		}
 

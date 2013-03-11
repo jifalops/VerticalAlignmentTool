@@ -1,4 +1,4 @@
-package com.verticalalignmenttool;
+package com.verticalalignmenttool.util;
 // TODO change to fit current implementation
 public final class Log {
 	private Log() { throw new AssertionError("Class is non-instantiable."); }
