@@ -1,16 +1,19 @@
 package com.verticalalignmenttool.elements;
 
-public class BasicToken extends Token {
+
+public class TextLine extends Line {
 	protected String mText;
 
-	public BasicToken(String text) {
-		this(1, text);
+
+	public TextLine(String text) {
+		this(0, text);
 	}
 
-	public BasicToken(int offset, String text) {
+	public TextLine(int offset, String text) {
 		super(offset);
 		mText = text;
 	}
+
 
 	public final String getText() {
 		return mText;
@@ -19,4 +22,5 @@ public class BasicToken extends Token {
 	public final void setText(String text) {
 		mText = text;
 	}
+
 }

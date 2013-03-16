@@ -3,18 +3,18 @@ package com.verticalalignmenttool.elements;
 import java.util.LinkedList;
 
 public class TokenGroup extends Token {
-	private LinkedList<Token> mChildren;
+	protected LinkedList<Token> mChildren;
 
 	public TokenGroup() {
-		super();
+		this(1);
 	}
 
-	public TokenGroup(double offset) {
+	public TokenGroup(int offset) {
 		super(offset);
 		mChildren = new LinkedList<Token>();
 	}
 
-	public LinkedList<Token> getChildren() {
+	public final LinkedList<Token> getChildren() {
 		return mChildren;
 	}
 }

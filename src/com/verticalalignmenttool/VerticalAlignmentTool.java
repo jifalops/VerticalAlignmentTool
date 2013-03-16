@@ -73,16 +73,13 @@ public class VerticalAlignmentTool extends JApplet {
 		mContainer.setContentPane(panel);
 		this.setSize(appWidth, appHeight);
 
-		mDisplayMetrics = new DisplayMetrics(panel);
+		mDisplayMetrics = new DisplayMetrics(mTextPane);
 
-
-
-
-		mTextPane.setFont(new Font("Verdana", java.awt.Font.PLAIN, 12));
+		mTextPane.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		StyledDocument styledDoc = mTextPane.getStyledDocument();
 		AbstractDocument doc = (AbstractDocument) styledDoc;
 		FontMetrics fm = mTextPane.getFontMetrics(mTextPane.getFont());
-		doc.setDocumentFilter(new DocFilter(fm));
+		doc.setDocumentFilter(new CodeDocumentFilter(fm));
 		String initialText = ""
 			+ "/* Hopefully this Java program should demonstrate how elastic tabstops work.\t*/\n"
 			+ "/* Try inserting and deleting different parts of the text and watch as the tabstops move.\t*/\n"
