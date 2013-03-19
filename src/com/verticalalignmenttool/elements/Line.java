@@ -33,24 +33,7 @@ public class Line extends AbstractElement {
 //	}
 
 
-	// TODO these probably belong in LineGroup (or replaced by a method in LineGroup).
-	public final boolean moveTo(int index) {
-		return moveTo(mParent, index);
-	}
 
-	public final boolean moveTo(LineGroup group, int index) {
-		if (group == null) return false;
-
-		if (group == mParent) {
-			int currentIndex = mParent.mChildren.indexOf(this);
-			if (index == currentIndex) return false;
-			if (index > currentIndex) --index;
-		}
-
-		if (mParent != null) mParent.mChildren.remove(this);
-		group.mChildren.add(index, this);
-		return true;
-	}
 
 	/** {@inheritDoc} */
 	@Override
