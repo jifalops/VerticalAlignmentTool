@@ -1,4 +1,4 @@
-package com.verticalalignmenttool;
+package com.verticalalignmenttool.app;
 
 import java.awt.BorderLayout;
 import java.awt.Font;

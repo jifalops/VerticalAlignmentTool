@@ -1,11 +1,11 @@
-package com.verticalalignmenttool;
+package com.verticalalignmenttool.app;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.StyledDocument;
 
-import com.verticalalignmenttool.elements.AlignedDocument;
+import com.verticalalignmenttool.AlignedDocument;
 
 public class CodeDocumentFilter extends DocumentFilter {
 	private AlignedDocument mDocument;

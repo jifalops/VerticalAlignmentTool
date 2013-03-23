@@ -1,4 +1,4 @@
-package com.verticalalignmenttool.elements;
+package com.verticalalignmenttool;
 
 public class AlignedDocument extends LineGroup {
 	public AlignedDocument() {
