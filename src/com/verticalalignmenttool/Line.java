@@ -2,33 +2,6 @@ package com.verticalalignmenttool;
 
 /** A line of text, not including the newline character. */
 public class Line extends AbstractLine {
-	public static enum Type {
-		NONE,
-		MIXED,
-		OTHER,
-		BLANK,
-		COMMENT,
-		STRING,
-		PACKAGE,
-		IMPORT,
-		VARIABLE_READ,
-		VARIABLE_WRITE,
-		CLASS_DEF,
-		METHOD_DEF,
-		METHOD_CALL,
-		CONSTRUCTOR,
-		SPECIAL_METHOD_CALL, //super
-		LOOP,
-		BEGIN_GROUP, // {
-		END_GROUP, // }
-		IF_ELSE,
-		SWITCH,
-		CASE,
-		TRY_CATCH,
-
-	}
-
-	protected Type mType;
 	protected String mText;
 	protected final TokenGroup mTokens;
 
@@ -40,7 +13,6 @@ public class Line extends AbstractLine {
 		super(offset);
 		mText = text;
 		mTokens = new TokenGroup(0);
-		mType = Type.NONE;
 	}
 
 

@@ -118,6 +118,8 @@ public abstract class AbstractLine extends AbstractElement {
 		return lineNum;
 	}
 
+
+	// TODO make these two function abstract
 	/**
 	 * The length of the text within this line, not including offsets or newlines.
 	 * To get length with offsets, use getTotalLength().

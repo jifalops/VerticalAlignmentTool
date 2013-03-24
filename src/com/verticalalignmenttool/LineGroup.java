@@ -9,17 +9,7 @@ import java.util.List;
  * Works similarly to a LinkedList where each element can have a parent.
  */
 public class LineGroup extends AbstractLine {
-	public static enum Type {
-		NONE,
-		MIXED,
-		BLANK,
-		COMMENT,
-		STRING
-	}
-
-
 	protected final LinkedList<AbstractLine> mChildren;
-	protected Type mType;
 
 	public LineGroup() {
 		this(0);
@@ -28,7 +18,6 @@ public class LineGroup extends AbstractLine {
 	public LineGroup(int offset) {
 		super(offset);
 		mChildren = new LinkedList<AbstractLine>();
-		mType = Type.NONE;
 	}
 
 	public final LinkedList<AbstractLine> getChildren() {
