@@ -31,6 +31,7 @@ public class Token {
 	public static final int TYPE_KEYWORD_MODIFIER_POSTFIX 	 = 17;
 	public static final int TYPE_KEYWORD_TYPE 	 = 18;
 	public static final int TYPE_IDENTIFIER_CHAIN  = 19;
+	public static final int TYPE_COMMENT = 20;
 
 
 // TODO blocks, keyword subtypes (modifier, etc.), handle unclosed blocks
@@ -39,10 +40,10 @@ public class Token {
 
 	public static final Pattern[] PATTERN;
 	static {
-		PATTERN = new Pattern[17];
+		PATTERN = new Pattern[21];
 
 		PATTERN[TYPE_UNKNOWN] = Pattern.compile(
-				"\\b\\w+?\\b");
+				".*");
 
 		PATTERN[TYPE_WHITE_SPACE] = Pattern.compile(
 				"\\s+");
@@ -52,6 +53,12 @@ public class Token {
 				"/\\*.*?\\*/             			|" +	// Multi-line closed
 				"/\\*.*(?:\\*/)?         			|" +	// Multi-line open
 				"\".*?(?<!\\\\)((?:\\\\\\\\)*)\"",			// String
+				Pattern.COMMENTS);
+
+		PATTERN[TYPE_COMMENT] = Pattern.compile(
+				"//.*             					|" +	// Single line
+				"/\\*.*?\\*/             			|" +	// Multi-line closed
+				"/\\*.*(?:\\*/)?         			 " ,	// Multi-line open
 				Pattern.COMMENTS);
 
 		PATTERN[TYPE_COMMENT_SINGLE_LINE] = Pattern.compile(
@@ -134,22 +141,24 @@ public class Token {
 				"+=|\\-=|*=|/=|&=|\\|=|^=|%=|<<=|>>=|>>>=");
 
 
+
+
 	}
 
 
-	public final int type;
-	public final int offset;
-	public final int length;
+	public final int type, start, end, length;
 
 	/**
 	 * Represents information about a token found within a string.
 	 * @param type - the type of this Token
-	 * @param offset - the offset in the string where this Token begins.
+	 * @param start - the offset in the string where this Token begins.
+	 * @param end - the offset in the string after this Token ends.
 	 * @param length - the length of this Token.
 	 */
-	public Token(int type, int offset, int length) {
+	public Token(int type, int start, int end) {
 		this.type = type;
-		this.offset = offset;
-		this.length = length;
+		this.start = start;
+		this.end = end;
+		this.length = start - end;
 	}
 }
