@@ -5,9 +5,9 @@ import java.util.List;
 public final class Line {
 	private final String mText;
 	private List<Token> mTokens;
-	private List<TokenGroup> mGroups;
 
-	private int mNumOpenParens, mNumOpenSqareBrackets, mNumOpenCurlyBraces;
+	// positive = excess open, negative = excess close
+	private int mParens, mSqareBrackets, mCurlyBraces;
 
 	public Line(String text) {
 		mText = text;
