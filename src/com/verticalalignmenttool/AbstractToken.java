@@ -76,7 +76,7 @@ public abstract class AbstractToken extends AbstractElement {
 
 	/** {@inheritDoc} */
 	@Override
-	public final int getCharactersBefore() {
+	public final int countCharactersBefore() {
 		int offset = 0;
 		AbstractToken child = this;
 		TokenGroup parent = mParent;

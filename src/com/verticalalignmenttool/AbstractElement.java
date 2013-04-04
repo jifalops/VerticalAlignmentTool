@@ -26,5 +26,5 @@ public abstract class AbstractElement {
 	 * Note: does not include the relative offset of this element.
 	 * It does include the relative offset of elements before it.
 	 */
-	public abstract int getCharactersBefore();
+	public abstract int countCharactersBefore();
 }

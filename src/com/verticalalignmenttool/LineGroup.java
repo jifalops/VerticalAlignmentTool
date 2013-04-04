@@ -120,7 +120,7 @@ public class LineGroup extends AbstractLine {
             // Key is in lo..hi or not present.
             int mid = lo + (hi - lo) / 2;
             child = mChildren.get(mid);
-            int offset = child.getCharactersBefore();
+            int offset = child.countCharactersBefore();
             if	(charOffset < offset) {
             	hi = mid - 1;
             }

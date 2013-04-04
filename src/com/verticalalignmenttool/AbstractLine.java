@@ -74,8 +74,8 @@ public abstract class AbstractLine extends AbstractElement {
 
 	/** {@inheritDoc} */
 	@Override
-	public final int getCharactersBefore() {
-		int offset = 0;
+	public final int countCharactersBefore() {
+		int count = 0;
 		AbstractLine child = this;
 		LineGroup parent = mParent;
 
@@ -83,12 +83,12 @@ public abstract class AbstractLine extends AbstractElement {
 		while (parent != null) {
 			index = parent.indexOf(child);
 			for (int i = 0; i < index; ++i) {
-				offset += parent.get(i).getTotalLength();
+				count += parent.get(i).getTotalLength();
 			}
 			child = parent;
 			parent = parent.mParent;
 		}
-		return offset;
+		return count;
 	}
 
 	/**
