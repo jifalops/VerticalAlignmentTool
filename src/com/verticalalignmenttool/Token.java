@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 // http://www.regular-expressions.info/lookaround.html
 
 public class Token {
-	public static final int TYPE_UNKNOWN     = 0;
+//	public static final int TYPE_UNKNOWN     = 0;
 	public static final int TYPE_WHITE_SPACE = 1;
 	public static final int TYPE_COMMENT_SINGLE_LINE= 2;
 	public static final int TYPE_COMMENT_MULTI_LINE	 = 3;
@@ -31,7 +31,23 @@ public class Token {
 	public static final int TYPE_KEYWORD_MODIFIER_POSTFIX 	 = 17;
 	public static final int TYPE_KEYWORD_TYPE 	 = 18;
 	public static final int TYPE_IDENTIFIER_CHAIN  = 19;
-	public static final int TYPE_COMMENT = 20;
+	public static final int TYPE_COMMENT = 0;
+
+
+	public static final int GROUP_LIST = 0;
+
+	public static final int LIST_SEPARATOR_COMMA = 0;
+	public static final int LIST_SEPARATOR_PERIOD = 0;
+	public static final int LIST_SEPARATOR_OPERATOR = 0;
+
+	public static final int SEPARATOR_COMMA = 0;
+
+
+
+	// Groups: separated list (same or differing separators?),
+	// Subgroups: comma separated list, operator sep list,
+
+	// Types: Literal, operator, comment, separator, identifier, keyword
 
 
 // TODO blocks, keyword subtypes (modifier, etc.), handle unclosed blocks
@@ -40,10 +56,10 @@ public class Token {
 
 	public static final Pattern[] PATTERN;
 	static {
-		PATTERN = new Pattern[21];
+		PATTERN = new Pattern[20];
 
-		PATTERN[TYPE_UNKNOWN] = Pattern.compile(
-				".*");
+//		PATTERN[TYPE_UNKNOWN] = Pattern.compile(
+//				".*");
 
 		PATTERN[TYPE_WHITE_SPACE] = Pattern.compile(
 				"\\s+");
@@ -146,7 +162,12 @@ public class Token {
 	}
 
 
+
+
+
+
 	public final int type, start, end, length;
+//	public final boolean isWord, isLiteral,
 
 	/**
 	 * Represents information about a token found within a string.
